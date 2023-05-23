@@ -61,7 +61,6 @@ public class Swift5ClientCodegen extends DefaultCodegen implements CodegenConfig
     public static final String POD_SCREENSHOTS = "podScreenshots";
     public static final String POD_DOCUMENTATION_URL = "podDocumentationURL";
     public static final String READONLY_PROPERTIES = "readonlyProperties";
-    public static final String REMOVE_MIGRATION_PROJECT_NAME_CLASS = "removeMigrationProjectNameClass";
     public static final String SWIFT_USE_API_NAMESPACE = "swiftUseApiNamespace";
     public static final String DEFAULT_POD_AUTHORS = "OpenAPI Generator";
     public static final String LENIENT_TYPE_CAST = "lenientTypeCast";
@@ -74,6 +73,7 @@ public class Swift5ClientCodegen extends DefaultCodegen implements CodegenConfig
     public static final String USE_JSON_ENCODABLE = "useJsonEncodable";
     public static final String MAP_FILE_BINARY_TO_DATA = "mapFileBinaryToData";
     public static final String USE_CUSTOM_DATE_WITHOUT_TIME = "useCustomDateWithoutTime";
+    public static final String VALIDATABLE = "validatable";
     protected static final String LIBRARY_ALAMOFIRE = "alamofire";
     protected static final String LIBRARY_URLSESSION = "urlsession";
     protected static final String LIBRARY_VAPOR = "vapor";
@@ -88,7 +88,6 @@ public class Swift5ClientCodegen extends DefaultCodegen implements CodegenConfig
     protected boolean objcCompatible = false;
     protected boolean lenientTypeCast = false;
     protected boolean readonlyProperties = false;
-    protected boolean removeMigrationProjectNameClass = false;
     protected boolean swiftUseApiNamespace = false;
     protected boolean useSPMFileStructure = false;
     protected String swiftPackagePath = "Classes" + File.separator + "OpenAPIs";
@@ -99,6 +98,7 @@ public class Swift5ClientCodegen extends DefaultCodegen implements CodegenConfig
     protected boolean useJsonEncodable = true;
     protected boolean mapFileBinaryToData = false;
     protected boolean useCustomDateWithoutTime = false;
+    protected boolean validatable = true;
     protected String[] responseAs = new String[0];
     protected String sourceFolder = swiftPackagePath;
     protected HashSet objcReservedWords;
@@ -143,7 +143,8 @@ public class Swift5ClientCodegen extends DefaultCodegen implements CodegenConfig
                         "URL",
                         "AnyObject",
                         "Any",
-                        "Decimal")
+                        "Decimal",
+                        "AnyCodable") // from AnyCodable dependency
         );
         defaultIncludes = new HashSet<>(
                 Arrays.asList(
@@ -273,8 +274,6 @@ public class Swift5ClientCodegen extends DefaultCodegen implements CodegenConfig
                 "Documentation URL used for Podspec"));
         cliOptions.add(new CliOption(READONLY_PROPERTIES, "Make properties "
                 + "readonly (default: false)"));
-        cliOptions.add(new CliOption(REMOVE_MIGRATION_PROJECT_NAME_CLASS, "Make properties "
-                + "removeMigrationProjectNameClass (default: false)"));
         cliOptions.add(new CliOption(SWIFT_USE_API_NAMESPACE,
                 "Flag to make all the API classes inner-class "
                         + "of {{projectName}}API"));
@@ -315,6 +314,10 @@ public class Swift5ClientCodegen extends DefaultCodegen implements CodegenConfig
         cliOptions.add(new CliOption(USE_CUSTOM_DATE_WITHOUT_TIME,
             "Uses a custom type to decode and encode dates without time information to support OpenAPIs date format (default: false)")
             .defaultValue(Boolean.FALSE.toString()));
+
+        cliOptions.add(new CliOption(VALIDATABLE,
+            "Make validation rules and validator for model properies (default: true)")
+            .defaultValue(Boolean.TRUE.toString()));
 
         supportedLibraries.put(LIBRARY_URLSESSION, "[DEFAULT] HTTP client: URLSession");
         supportedLibraries.put(LIBRARY_ALAMOFIRE, "HTTP client: Alamofire");
@@ -470,12 +473,6 @@ public class Swift5ClientCodegen extends DefaultCodegen implements CodegenConfig
         }
         additionalProperties.put(READONLY_PROPERTIES, readonlyProperties);
 
-        // Setup removeMigrationProjectNameClass option, which keeps or remove the projectName class
-        if (additionalProperties.containsKey(REMOVE_MIGRATION_PROJECT_NAME_CLASS)) {
-            setRemoveMigrationProjectNameClass(convertPropertyToBooleanAndWriteBack(REMOVE_MIGRATION_PROJECT_NAME_CLASS));
-        }
-        additionalProperties.put(REMOVE_MIGRATION_PROJECT_NAME_CLASS, removeMigrationProjectNameClass);
-
         // Setup swiftUseApiNamespace option, which makes all the API
         // classes inner-class of {{projectName}}API
         if (additionalProperties.containsKey(SWIFT_USE_API_NAMESPACE)) {
@@ -539,6 +536,11 @@ public class Swift5ClientCodegen extends DefaultCodegen implements CodegenConfig
         }
         additionalProperties.put(USE_CLASSES, useClasses);
 
+        if (additionalProperties.containsKey(VALIDATABLE)) {
+            setValidatable(convertPropertyToBooleanAndWriteBack(VALIDATABLE));
+        }
+        additionalProperties.put(VALIDATABLE, validatable);
+
         setLenientTypeCast(convertPropertyToBooleanAndWriteBack(LENIENT_TYPE_CAST));
 
         // make api and model doc path available in mustache template
@@ -597,6 +599,11 @@ public class Swift5ClientCodegen extends DefaultCodegen implements CodegenConfig
         supportingFiles.add(new SupportingFile("APIs.mustache",
                 sourceFolder,
                 "APIs.swift"));
+        if (validatable) {
+            supportingFiles.add(new SupportingFile("Validation.mustache",
+            sourceFolder,
+            "Validation.swift"));
+        }
         supportingFiles.add(new SupportingFile("gitignore.mustache",
                 "",
                 ".gitignore"));
@@ -715,11 +722,11 @@ public class Swift5ClientCodegen extends DefaultCodegen implements CodegenConfig
         // FIXME parameter should not be assigned. Also declare it as "final"
         name = sanitizeName(name);
 
-        if (!StringUtils.isEmpty(modelNameSuffix)) { // set model suffix
+        if (!StringUtils.isEmpty(modelNameSuffix) && !isLanguageSpecificType(name)) { // set model suffix
             name = name + "_" + modelNameSuffix;
         }
 
-        if (!StringUtils.isEmpty(modelNamePrefix)) { // set model prefix
+        if (!StringUtils.isEmpty(modelNamePrefix) && !isLanguageSpecificType(name)) { // set model prefix
             name = modelNamePrefix + "_" + name;
         }
 
@@ -957,10 +964,6 @@ public class Swift5ClientCodegen extends DefaultCodegen implements CodegenConfig
         this.readonlyProperties = readonlyProperties;
     }
 
-    public void setRemoveMigrationProjectNameClass(boolean removeMigrationProjectNameClass) {
-        this.removeMigrationProjectNameClass = removeMigrationProjectNameClass;
-    }
-
     public void setResponseAs(String[] responseAs) {
         this.responseAs = responseAs;
     }
@@ -995,6 +998,10 @@ public class Swift5ClientCodegen extends DefaultCodegen implements CodegenConfig
 
     public void setUseJsonEncodable(boolean useJsonEncodable) {
         this.useJsonEncodable = useJsonEncodable;
+    }
+
+    public void setValidatable(boolean validatable) {
+        this.validatable = validatable;
     }
 
     @Override
@@ -1064,6 +1071,10 @@ public class Swift5ClientCodegen extends DefaultCodegen implements CodegenConfig
         return camelize(replaceSpecialCharacters(WordUtils.capitalizeFully(StringUtils.lowerCase(name), separators)
                         .replaceAll("[-_ :\\(\\)]", "")),
                 LOWERCASE_FIRST_LETTER);
+    }
+
+    private Boolean isLanguageSpecificType(String name) {
+        return languageSpecificPrimitives.contains(name);
     }
 
     private String replaceSpecialCharacters(String name) {

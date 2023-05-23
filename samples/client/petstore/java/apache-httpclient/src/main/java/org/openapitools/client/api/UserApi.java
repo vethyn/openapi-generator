@@ -25,12 +25,16 @@ import org.openapitools.client.model.User;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UserApi {
+
+
   private ApiClient apiClient;
 
   public UserApi() {
@@ -56,6 +60,18 @@ public class UserApi {
    * @throws ApiException if fails to make API call
    */
   public void createUser(User user) throws ApiException {
+    this.createUser(user, Collections.emptyMap());
+  }
+
+
+  /**
+   * Create user
+   * This can only be done by the logged in user.
+   * @param user Created user object (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @throws ApiException if fails to make API call
+   */
+  public void createUser(User user, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = user;
     
     // verify the required parameter 'user' is set
@@ -66,7 +82,8 @@ public class UserApi {
     // create path and map variables
     String localVarPath = "/user";
 
-    // query params
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
@@ -74,6 +91,8 @@ public class UserApi {
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     
+    localVarHeaderParams.putAll(additionalHeaders);
+
     
     
     final String[] localVarAccepts = {
@@ -93,6 +112,7 @@ public class UserApi {
         "POST",
         localVarQueryParams,
         localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
         localVarPostBody,
         localVarHeaderParams,
         localVarCookieParams,
@@ -103,6 +123,7 @@ public class UserApi {
         null
     );
   }
+
   /**
    * Creates list of users with given input array
    * 
@@ -110,6 +131,18 @@ public class UserApi {
    * @throws ApiException if fails to make API call
    */
   public void createUsersWithArrayInput(List<User> user) throws ApiException {
+    this.createUsersWithArrayInput(user, Collections.emptyMap());
+  }
+
+
+  /**
+   * Creates list of users with given input array
+   * 
+   * @param user List of user object (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @throws ApiException if fails to make API call
+   */
+  public void createUsersWithArrayInput(List<User> user, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = user;
     
     // verify the required parameter 'user' is set
@@ -120,7 +153,8 @@ public class UserApi {
     // create path and map variables
     String localVarPath = "/user/createWithArray";
 
-    // query params
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
@@ -128,6 +162,8 @@ public class UserApi {
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     
+    localVarHeaderParams.putAll(additionalHeaders);
+
     
     
     final String[] localVarAccepts = {
@@ -147,6 +183,7 @@ public class UserApi {
         "POST",
         localVarQueryParams,
         localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
         localVarPostBody,
         localVarHeaderParams,
         localVarCookieParams,
@@ -157,6 +194,7 @@ public class UserApi {
         null
     );
   }
+
   /**
    * Creates list of users with given input array
    * 
@@ -164,6 +202,18 @@ public class UserApi {
    * @throws ApiException if fails to make API call
    */
   public void createUsersWithListInput(List<User> user) throws ApiException {
+    this.createUsersWithListInput(user, Collections.emptyMap());
+  }
+
+
+  /**
+   * Creates list of users with given input array
+   * 
+   * @param user List of user object (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @throws ApiException if fails to make API call
+   */
+  public void createUsersWithListInput(List<User> user, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = user;
     
     // verify the required parameter 'user' is set
@@ -174,7 +224,8 @@ public class UserApi {
     // create path and map variables
     String localVarPath = "/user/createWithList";
 
-    // query params
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
@@ -182,6 +233,8 @@ public class UserApi {
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     
+    localVarHeaderParams.putAll(additionalHeaders);
+
     
     
     final String[] localVarAccepts = {
@@ -201,6 +254,7 @@ public class UserApi {
         "POST",
         localVarQueryParams,
         localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
         localVarPostBody,
         localVarHeaderParams,
         localVarCookieParams,
@@ -211,6 +265,7 @@ public class UserApi {
         null
     );
   }
+
   /**
    * Delete user
    * This can only be done by the logged in user.
@@ -218,6 +273,18 @@ public class UserApi {
    * @throws ApiException if fails to make API call
    */
   public void deleteUser(String username) throws ApiException {
+    this.deleteUser(username, Collections.emptyMap());
+  }
+
+
+  /**
+   * Delete user
+   * This can only be done by the logged in user.
+   * @param username The name that needs to be deleted (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteUser(String username, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'username' is set
@@ -229,7 +296,8 @@ public class UserApi {
     String localVarPath = "/user/{username}"
       .replaceAll("\\{" + "username" + "\\}", apiClient.escapeString(username.toString()));
 
-    // query params
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
@@ -237,6 +305,8 @@ public class UserApi {
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     
+    localVarHeaderParams.putAll(additionalHeaders);
+
     
     
     final String[] localVarAccepts = {
@@ -256,6 +326,7 @@ public class UserApi {
         "DELETE",
         localVarQueryParams,
         localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
         localVarPostBody,
         localVarHeaderParams,
         localVarCookieParams,
@@ -266,6 +337,7 @@ public class UserApi {
         null
     );
   }
+
   /**
    * Get user by user name
    * 
@@ -274,6 +346,19 @@ public class UserApi {
    * @throws ApiException if fails to make API call
    */
   public User getUserByName(String username) throws ApiException {
+    return this.getUserByName(username, Collections.emptyMap());
+  }
+
+
+  /**
+   * Get user by user name
+   * 
+   * @param username The name that needs to be fetched. Use user1 for testing. (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return User
+   * @throws ApiException if fails to make API call
+   */
+  public User getUserByName(String username, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'username' is set
@@ -285,7 +370,8 @@ public class UserApi {
     String localVarPath = "/user/{username}"
       .replaceAll("\\{" + "username" + "\\}", apiClient.escapeString(username.toString()));
 
-    // query params
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
@@ -293,6 +379,8 @@ public class UserApi {
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     
+    localVarHeaderParams.putAll(additionalHeaders);
+
     
     
     final String[] localVarAccepts = {
@@ -313,6 +401,7 @@ public class UserApi {
         "GET",
         localVarQueryParams,
         localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
         localVarPostBody,
         localVarHeaderParams,
         localVarCookieParams,
@@ -323,6 +412,7 @@ public class UserApi {
         localVarReturnType
     );
   }
+
   /**
    * Logs user into the system
    * 
@@ -332,6 +422,20 @@ public class UserApi {
    * @throws ApiException if fails to make API call
    */
   public String loginUser(String username, String password) throws ApiException {
+    return this.loginUser(username, password, Collections.emptyMap());
+  }
+
+
+  /**
+   * Logs user into the system
+   * 
+   * @param username The user name for login (required)
+   * @param password The password for login in clear text (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return String
+   * @throws ApiException if fails to make API call
+   */
+  public String loginUser(String username, String password, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'username' is set
@@ -347,7 +451,8 @@ public class UserApi {
     // create path and map variables
     String localVarPath = "/user/login";
 
-    // query params
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
@@ -357,6 +462,8 @@ public class UserApi {
     localVarQueryParams.addAll(apiClient.parameterToPair("username", username));
     localVarQueryParams.addAll(apiClient.parameterToPair("password", password));
     
+    localVarHeaderParams.putAll(additionalHeaders);
+
     
     
     final String[] localVarAccepts = {
@@ -377,6 +484,7 @@ public class UserApi {
         "GET",
         localVarQueryParams,
         localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
         localVarPostBody,
         localVarHeaderParams,
         localVarCookieParams,
@@ -387,18 +495,31 @@ public class UserApi {
         localVarReturnType
     );
   }
+
   /**
    * Logs out current logged in user session
    * 
    * @throws ApiException if fails to make API call
    */
   public void logoutUser() throws ApiException {
+    this.logoutUser(Collections.emptyMap());
+  }
+
+
+  /**
+   * Logs out current logged in user session
+   * 
+   * @param additionalHeaders additionalHeaders for this call
+   * @throws ApiException if fails to make API call
+   */
+  public void logoutUser(Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
     String localVarPath = "/user/logout";
 
-    // query params
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
@@ -406,6 +527,8 @@ public class UserApi {
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     
+    localVarHeaderParams.putAll(additionalHeaders);
+
     
     
     final String[] localVarAccepts = {
@@ -425,6 +548,7 @@ public class UserApi {
         "GET",
         localVarQueryParams,
         localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
         localVarPostBody,
         localVarHeaderParams,
         localVarCookieParams,
@@ -435,6 +559,7 @@ public class UserApi {
         null
     );
   }
+
   /**
    * Updated user
    * This can only be done by the logged in user.
@@ -443,6 +568,19 @@ public class UserApi {
    * @throws ApiException if fails to make API call
    */
   public void updateUser(String username, User user) throws ApiException {
+    this.updateUser(username, user, Collections.emptyMap());
+  }
+
+
+  /**
+   * Updated user
+   * This can only be done by the logged in user.
+   * @param username name that need to be deleted (required)
+   * @param user Updated user object (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @throws ApiException if fails to make API call
+   */
+  public void updateUser(String username, User user, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = user;
     
     // verify the required parameter 'username' is set
@@ -459,7 +597,8 @@ public class UserApi {
     String localVarPath = "/user/{username}"
       .replaceAll("\\{" + "username" + "\\}", apiClient.escapeString(username.toString()));
 
-    // query params
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
@@ -467,6 +606,8 @@ public class UserApi {
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     
+    localVarHeaderParams.putAll(additionalHeaders);
+
     
     
     final String[] localVarAccepts = {
@@ -486,6 +627,7 @@ public class UserApi {
         "PUT",
         localVarQueryParams,
         localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
         localVarPostBody,
         localVarHeaderParams,
         localVarCookieParams,
@@ -496,4 +638,5 @@ public class UserApi {
         null
     );
   }
+
 }

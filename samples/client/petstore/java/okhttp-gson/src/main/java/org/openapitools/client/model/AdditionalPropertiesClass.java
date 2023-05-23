@@ -35,6 +35,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -53,11 +57,11 @@ import org.openapitools.client.JSON;
 public class AdditionalPropertiesClass {
   public static final String SERIALIZED_NAME_MAP_PROPERTY = "map_property";
   @SerializedName(SERIALIZED_NAME_MAP_PROPERTY)
-  private Map<String, String> mapProperty = null;
+  private Map<String, String> mapProperty = new HashMap<>();
 
   public static final String SERIALIZED_NAME_MAP_OF_MAP_PROPERTY = "map_of_map_property";
   @SerializedName(SERIALIZED_NAME_MAP_OF_MAP_PROPERTY)
-  private Map<String, Map<String, String>> mapOfMapProperty = null;
+  private Map<String, Map<String, String>> mapOfMapProperty = new HashMap<>();
 
   public static final String SERIALIZED_NAME_ANYTYPE1 = "anytype_1";
   @SerializedName(SERIALIZED_NAME_ANYTYPE1)
@@ -73,7 +77,7 @@ public class AdditionalPropertiesClass {
 
   public static final String SERIALIZED_NAME_MAP_WITH_UNDECLARED_PROPERTIES_ANYTYPE3 = "map_with_undeclared_properties_anytype_3";
   @SerializedName(SERIALIZED_NAME_MAP_WITH_UNDECLARED_PROPERTIES_ANYTYPE3)
-  private Map<String, Object> mapWithUndeclaredPropertiesAnytype3 = null;
+  private Map<String, Object> mapWithUndeclaredPropertiesAnytype3 = new HashMap<>();
 
   public static final String SERIALIZED_NAME_EMPTY_MAP = "empty_map";
   @SerializedName(SERIALIZED_NAME_EMPTY_MAP)
@@ -81,7 +85,7 @@ public class AdditionalPropertiesClass {
 
   public static final String SERIALIZED_NAME_MAP_WITH_UNDECLARED_PROPERTIES_STRING = "map_with_undeclared_properties_string";
   @SerializedName(SERIALIZED_NAME_MAP_WITH_UNDECLARED_PROPERTIES_STRING)
-  private Map<String, String> mapWithUndeclaredPropertiesString = null;
+  private Map<String, String> mapWithUndeclaredPropertiesString = new HashMap<>();
 
   public AdditionalPropertiesClass() {
   }
@@ -105,7 +109,6 @@ public class AdditionalPropertiesClass {
    * @return mapProperty
   **/
   @javax.annotation.Nullable
-
   public Map<String, String> getMapProperty() {
     return mapProperty;
   }
@@ -135,7 +138,6 @@ public class AdditionalPropertiesClass {
    * @return mapOfMapProperty
   **/
   @javax.annotation.Nullable
-
   public Map<String, Map<String, String>> getMapOfMapProperty() {
     return mapOfMapProperty;
   }
@@ -157,7 +159,6 @@ public class AdditionalPropertiesClass {
    * @return anytype1
   **/
   @javax.annotation.Nullable
-
   public Object getAnytype1() {
     return anytype1;
   }
@@ -179,7 +180,6 @@ public class AdditionalPropertiesClass {
    * @return mapWithUndeclaredPropertiesAnytype1
   **/
   @javax.annotation.Nullable
-
   public Object getMapWithUndeclaredPropertiesAnytype1() {
     return mapWithUndeclaredPropertiesAnytype1;
   }
@@ -201,7 +201,6 @@ public class AdditionalPropertiesClass {
    * @return mapWithUndeclaredPropertiesAnytype2
   **/
   @javax.annotation.Nullable
-
   public Object getMapWithUndeclaredPropertiesAnytype2() {
     return mapWithUndeclaredPropertiesAnytype2;
   }
@@ -231,7 +230,6 @@ public class AdditionalPropertiesClass {
    * @return mapWithUndeclaredPropertiesAnytype3
   **/
   @javax.annotation.Nullable
-
   public Map<String, Object> getMapWithUndeclaredPropertiesAnytype3() {
     return mapWithUndeclaredPropertiesAnytype3;
   }
@@ -253,7 +251,6 @@ public class AdditionalPropertiesClass {
    * @return emptyMap
   **/
   @javax.annotation.Nullable
-
   public Object getEmptyMap() {
     return emptyMap;
   }
@@ -283,7 +280,6 @@ public class AdditionalPropertiesClass {
    * @return mapWithUndeclaredPropertiesString
   **/
   @javax.annotation.Nullable
-
   public Map<String, String> getMapWithUndeclaredPropertiesString() {
     return mapWithUndeclaredPropertiesString;
   }

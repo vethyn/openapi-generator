@@ -28,7 +28,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-@Component("org.openapitools.client.api.PetApi")
 public class PetApi {
     private ApiClient apiClient;
 
@@ -36,7 +35,6 @@ public class PetApi {
         this(new ApiClient());
     }
 
-    @Autowired
     public PetApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
@@ -317,6 +315,8 @@ public class PetApi {
      * @param pet Pet object that needs to be added to the store (required)
      * @return Pet
      * @throws RestClientException if an error occurs while attempting to invoke the API
+     * API documentation for the updatePet operation
+     * @see <a href="http://petstore.swagger.io/v2/doc/updatePet">Update an existing pet Documentation</a>
      */
     public Pet updatePet(Pet pet) throws RestClientException {
         return updatePetWithHttpInfo(pet).getBody();
@@ -332,6 +332,8 @@ public class PetApi {
      * @param pet Pet object that needs to be added to the store (required)
      * @return ResponseEntity&lt;Pet&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
+     * API documentation for the updatePet operation
+     * @see <a href="http://petstore.swagger.io/v2/doc/updatePet">Update an existing pet Documentation</a>
      */
     public ResponseEntity<Pet> updatePetWithHttpInfo(Pet pet) throws RestClientException {
         Object localVarPostBody = pet;

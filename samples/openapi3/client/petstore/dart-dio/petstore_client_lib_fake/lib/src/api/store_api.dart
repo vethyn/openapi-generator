@@ -114,22 +114,23 @@ class StoreApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltMap<String, int> _responseData;
+    BuiltMap<String, int>? _responseData;
 
     try {
-      const _responseType = FullType(BuiltMap, [FullType(String), FullType(int)]);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(BuiltMap, [FullType(String), FullType(int)]),
       ) as BuiltMap<String, int>;
 
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     return Response<BuiltMap<String, int>>(
@@ -188,22 +189,23 @@ class StoreApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    Order _responseData;
+    Order? _responseData;
 
     try {
-      const _responseType = FullType(Order);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(Order),
       ) as Order;
 
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     return Response<Order>(
@@ -267,9 +269,10 @@ class StoreApi {
           _dio.options,
           _path,
         ),
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     final _response = await _dio.request<Object>(
@@ -281,22 +284,23 @@ class StoreApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    Order _responseData;
+    Order? _responseData;
 
     try {
-      const _responseType = FullType(Order);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(Order),
       ) as Order;
 
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     return Response<Order>(

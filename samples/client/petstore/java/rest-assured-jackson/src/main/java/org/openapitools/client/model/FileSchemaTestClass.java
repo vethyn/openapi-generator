@@ -42,7 +42,7 @@ public class FileSchemaTestClass {
   private ModelFile _file;
 
   public static final String JSON_PROPERTY_FILES = "files";
-  private List<ModelFile> files = null;
+  private List<ModelFile> files;
 
   public FileSchemaTestClass() {
   }
@@ -109,7 +109,6 @@ public class FileSchemaTestClass {
   public void setFiles(List<ModelFile> files) {
     this.files = files;
   }
-
 
   @Override
   public boolean equals(Object o) {
