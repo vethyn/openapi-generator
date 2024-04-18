@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -60,7 +61,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   XmlItem.JSON_PROPERTY_PREFIX_NS_ARRAY,
   XmlItem.JSON_PROPERTY_PREFIX_NS_WRAPPED_ARRAY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.6.0-SNAPSHOT")
 public class XmlItem {
   public static final String JSON_PROPERTY_ATTRIBUTE_STRING = "attribute_string";
   private String attributeString;
@@ -75,7 +76,7 @@ public class XmlItem {
   private Boolean attributeBoolean;
 
   public static final String JSON_PROPERTY_WRAPPED_ARRAY = "wrapped_array";
-  private List<Integer> wrappedArray;
+  private List<Integer> wrappedArray = new ArrayList<>();
 
   public static final String JSON_PROPERTY_NAME_STRING = "name_string";
   private String nameString;
@@ -90,10 +91,10 @@ public class XmlItem {
   private Boolean nameBoolean;
 
   public static final String JSON_PROPERTY_NAME_ARRAY = "name_array";
-  private List<Integer> nameArray;
+  private List<Integer> nameArray = new ArrayList<>();
 
   public static final String JSON_PROPERTY_NAME_WRAPPED_ARRAY = "name_wrapped_array";
-  private List<Integer> nameWrappedArray;
+  private List<Integer> nameWrappedArray = new ArrayList<>();
 
   public static final String JSON_PROPERTY_PREFIX_STRING = "prefix_string";
   private String prefixString;
@@ -108,10 +109,10 @@ public class XmlItem {
   private Boolean prefixBoolean;
 
   public static final String JSON_PROPERTY_PREFIX_ARRAY = "prefix_array";
-  private List<Integer> prefixArray;
+  private List<Integer> prefixArray = new ArrayList<>();
 
   public static final String JSON_PROPERTY_PREFIX_WRAPPED_ARRAY = "prefix_wrapped_array";
-  private List<Integer> prefixWrappedArray;
+  private List<Integer> prefixWrappedArray = new ArrayList<>();
 
   public static final String JSON_PROPERTY_NAMESPACE_STRING = "namespace_string";
   private String namespaceString;
@@ -126,10 +127,10 @@ public class XmlItem {
   private Boolean namespaceBoolean;
 
   public static final String JSON_PROPERTY_NAMESPACE_ARRAY = "namespace_array";
-  private List<Integer> namespaceArray;
+  private List<Integer> namespaceArray = new ArrayList<>();
 
   public static final String JSON_PROPERTY_NAMESPACE_WRAPPED_ARRAY = "namespace_wrapped_array";
-  private List<Integer> namespaceWrappedArray;
+  private List<Integer> namespaceWrappedArray = new ArrayList<>();
 
   public static final String JSON_PROPERTY_PREFIX_NS_STRING = "prefix_ns_string";
   private String prefixNsString;
@@ -144,10 +145,10 @@ public class XmlItem {
   private Boolean prefixNsBoolean;
 
   public static final String JSON_PROPERTY_PREFIX_NS_ARRAY = "prefix_ns_array";
-  private List<Integer> prefixNsArray;
+  private List<Integer> prefixNsArray = new ArrayList<>();
 
   public static final String JSON_PROPERTY_PREFIX_NS_WRAPPED_ARRAY = "prefix_ns_wrapped_array";
-  private List<Integer> prefixNsWrappedArray;
+  private List<Integer> prefixNsWrappedArray = new ArrayList<>();
 
   public XmlItem() {
   }

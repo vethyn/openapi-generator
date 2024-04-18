@@ -55,6 +55,7 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.function.Supplier;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -66,6 +67,7 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.charset.UnsupportedCharsetException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -81,7 +83,7 @@ import org.openapitools.client.auth.HttpBearerAuth;
 import org.openapitools.client.auth.ApiKeyAuth;
 import org.openapitools.client.auth.OAuth;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.6.0-SNAPSHOT")
 public class ApiClient extends JavaTimeFormatter {
   private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
   private Map<String, String> defaultCookieMap = new HashMap<String, String>();
@@ -353,6 +355,20 @@ public class ApiClient extends JavaTimeFormatter {
     throw new RuntimeException("No Bearer authentication configured!");
   }
 
+  /**
+   * Helper method to set the supplier of access tokens for Bearer authentication.
+   *
+   * @param tokenSupplier the token supplier function
+   */
+  public void setBearerToken(Supplier<String> tokenSupplier) {
+    for (Authentication auth : authentications.values()) {
+      if (auth instanceof HttpBearerAuth) {
+        ((HttpBearerAuth) auth).setBearerToken(tokenSupplier);
+        return;
+      }
+    }
+    throw new RuntimeException("No Bearer authentication configured!");
+  }
 
   /**
    * Helper method to set username for the first HTTP basic authentication.
@@ -619,7 +635,7 @@ public class ApiClient extends JavaTimeFormatter {
     List<Pair> params = new ArrayList<Pair>();
 
     // preconditions
-    if (name == null || name.isEmpty() || value == null) {
+    if (name == null || name.isEmpty() || value == null || value.isEmpty()) {
       return params;
     }
 
@@ -781,7 +797,7 @@ public class ApiClient extends JavaTimeFormatter {
     String mimeType = contentType.getMimeType();
     if (isJsonMime(mimeType)) {
       try {
-        return new StringEntity(objectMapper.writeValueAsString(obj), contentType);
+        return new StringEntity(objectMapper.writeValueAsString(obj), contentType.withCharset(StandardCharsets.UTF_8));
       } catch (JsonProcessingException e) {
         throw new ApiException(e);
       }
@@ -848,8 +864,7 @@ public class ApiClient extends JavaTimeFormatter {
     if (mimeType == null || isJsonMime(mimeType)) {
       // Assume json if no mime type
       // convert input stream to string
-      java.util.Scanner s = new java.util.Scanner(entity.getContent()).useDelimiter("\\A");
-      String content = (String) (s.hasNext() ? s.next() : "");
+      String content = EntityUtils.toString(entity);
 
       if ("".equals(content)) { // returns null for empty body
         return null;
@@ -858,8 +873,7 @@ public class ApiClient extends JavaTimeFormatter {
       return objectMapper.readValue(content, valueType);
     } else if ("text/plain".equalsIgnoreCase(mimeType)) {
       // convert input stream to string
-      java.util.Scanner s = new java.util.Scanner(entity.getContent()).useDelimiter("\\A");
-      return (T) (s.hasNext() ? s.next() : "");
+      return (T) EntityUtils.toString(entity);
     } else {
       throw new ApiException(
           "Deserialization for content type '" + mimeType + "' not supported for type '" + valueType + "'",
@@ -913,15 +927,11 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   /**
-   * Build full URL by concatenating base path, the given sub path and query parameters.
+   * Returns the URL of the client as defined by the server (if exists) or the base path.
    *
-   * @param path The sub path
-   * @param queryParams The query parameters
-   * @param collectionQueryParams The collection query parameters
-   * @param urlQueryDeepObject URL query string of the deep object parameters
-   * @return The full URL
+   * @return The URL for the client.
    */
-  private String buildUrl(String path, List<Pair> queryParams, List<Pair> collectionQueryParams, String urlQueryDeepObject) {
+  public String getBaseURL() {
     String baseURL;
     if (serverIndex != null) {
       if (serverIndex < 0 || serverIndex >= servers.size()) {
@@ -933,6 +943,20 @@ public class ApiClient extends JavaTimeFormatter {
     } else {
       baseURL = basePath;
     }
+    return baseURL;
+  }
+
+  /**
+   * Build full URL by concatenating base URL, the given sub path and query parameters.
+   *
+   * @param path The sub path
+   * @param queryParams The query parameters
+   * @param collectionQueryParams The collection query parameters
+   * @param urlQueryDeepObject URL query string of the deep object parameters
+   * @return The full URL
+   */
+  private String buildUrl(String path, List<Pair> queryParams, List<Pair> collectionQueryParams, String urlQueryDeepObject) {
+    String baseURL = getBaseURL();
 
     final StringBuilder url = new StringBuilder();
     url.append(baseURL).append(path);

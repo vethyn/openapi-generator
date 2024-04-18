@@ -30,7 +30,7 @@ import jakarta.annotation.Generated;
   @JsonSubTypes.Type(value = BigCatDto.class, name = "BigCat")
 })
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", comments = "Generator version: 7.6.0-SNAPSHOT")
 public class CatDto extends AnimalDto {
 
   private Boolean declawed;
@@ -54,16 +54,16 @@ public class CatDto extends AnimalDto {
     this.declawed = declawed;
   }
 
+
   public CatDto className(String className) {
-    super.setClassName(className);
+    super.className(className);
     return this;
   }
 
   public CatDto color(String color) {
-    super.setColor(color);
+    super.color(color);
     return this;
   }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {

@@ -26,7 +26,7 @@ These options may be applied as additional-properties (cli) or configOptions (pl
 |artifactDescription|artifact description in generated pom.xml| |OpenAPI Java|
 |artifactId|artifactId in generated pom.xml. This also becomes part of the generated library's filename| |openapi-jaxrs-server|
 |artifactUrl|artifact URL in generated pom.xml| |https://github.com/openapitools/openapi-generator|
-|artifactVersion|artifact version in generated pom.xml. This also becomes part of the generated library's filename| |1.0.0|
+|artifactVersion|artifact version in generated pom.xml. This also becomes part of the generated library's filename. If not provided, uses the version from the OpenAPI specification file. If that's also not present, uses the default value of the artifactVersion option.| |1.0.0|
 |bigDecimalAsString|Treat BigDecimal values as Strings to avoid precision loss.| |false|
 |booleanGetterPrefix|Set booleanGetterPrefix| |get|
 |camelCaseDollarSign|Fix camelCase when starting with $ sign. when true : $Value when false : $value| |false|
@@ -78,6 +78,7 @@ These options may be applied as additional-properties (cli) or configOptions (pl
 |useBeanValidation|Use BeanValidation API annotations| |true|
 |useJakartaEe|whether to use Jakarta EE namespace instead of javax| |false|
 |useMicroProfileOpenAPIAnnotations|Whether to generate Microprofile OpenAPI annotations. Only valid when library is set to quarkus.| |false|
+|useMutiny|Whether to use Smallrye Mutiny instead of CompletionStage for asynchronous computation. Only valid when library is set to quarkus.| |false|
 |useOneOfInterfaces|whether to use a java interface to describe a set of oneOf options, where each option is a class that implements the interface| |false|
 |useSwaggerAnnotations|Whether to generate Swagger annotations.| |true|
 |useTags|use tags for creating interface and controller classnames| |false|
@@ -146,6 +147,7 @@ These options may be applied as additional-properties (cli) or configOptions (pl
 ## RESERVED WORDS
 
 <ul class="column-ul">
+<li>_</li>
 <li>abstract</li>
 <li>apiclient</li>
 <li>apiexception</li>
@@ -180,7 +182,9 @@ These options may be applied as additional-properties (cli) or configOptions (pl
 <li>int</li>
 <li>interface</li>
 <li>list</li>
+<li>localdate</li>
 <li>localreturntype</li>
+<li>localtime</li>
 <li>localvaraccept</li>
 <li>localvaraccepts</li>
 <li>localvarauthnames</li>
@@ -198,6 +202,7 @@ These options may be applied as additional-properties (cli) or configOptions (pl
 <li>new</li>
 <li>null</li>
 <li>object</li>
+<li>offsetdatetime</li>
 <li>package</li>
 <li>private</li>
 <li>protected</li>
@@ -320,15 +325,16 @@ These options may be applied as additional-properties (cli) or configOptions (pl
 ### Security Feature
 | Name | Supported | Defined By |
 | ---- | --------- | ---------- |
-|BasicAuth|✗|OAS2,OAS3
-|ApiKey|✗|OAS2,OAS3
-|OpenIDConnect|✗|OAS3
-|BearerToken|✗|OAS3
-|OAuth2_Implicit|✗|OAS2,OAS3
-|OAuth2_Password|✗|OAS2,OAS3
-|OAuth2_ClientCredentials|✗|OAS2,OAS3
-|OAuth2_AuthorizationCode|✗|OAS2,OAS3
+|BasicAuth|✓|OAS2,OAS3
+|ApiKey|✓|OAS2,OAS3
+|OpenIDConnect|✓|OAS3
+|BearerToken|✓|OAS3
+|OAuth2_Implicit|✓|OAS2,OAS3
+|OAuth2_Password|✓|OAS2,OAS3
+|OAuth2_ClientCredentials|✓|OAS2,OAS3
+|OAuth2_AuthorizationCode|✓|OAS2,OAS3
 |SignatureAuth|✗|OAS3
+|AWSV4Signature|✗|ToolingExtension
 
 ### Wire Format Feature
 | Name | Supported | Defined By |

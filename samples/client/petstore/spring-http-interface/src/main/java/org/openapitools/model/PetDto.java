@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,7 +27,7 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("Pet")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", comments = "Generator version: 7.6.0-SNAPSHOT")
 public class PetDto {
 
   private Long id;
@@ -39,7 +40,7 @@ public class PetDto {
   private Set<String> photoUrls = new LinkedHashSet<>();
 
   
-  private List<TagDto> tags;
+  private List<TagDto> tags = new ArrayList<>();
 
   /**
    * pet status in the store
@@ -78,6 +79,7 @@ public class PetDto {
     }
   }
 
+  @Deprecated
   private StatusEnum status;
 
   public PetDto id(Long id) {
@@ -200,13 +202,19 @@ public class PetDto {
   /**
    * pet status in the store
    * @return status
+   * @deprecated
   */
   
   @JsonProperty("status")
+  @Deprecated
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * @deprecated
+  */
+  @Deprecated
   public void setStatus(StatusEnum status) {
     this.status = status;
   }

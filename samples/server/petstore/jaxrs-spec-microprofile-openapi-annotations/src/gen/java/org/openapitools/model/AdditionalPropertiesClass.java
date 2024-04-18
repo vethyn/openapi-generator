@@ -1,7 +1,5 @@
 package org.openapitools.model;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +8,6 @@ import java.io.Serializable;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
-import io.swagger.annotations.*;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -21,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @org.eclipse.microprofile.openapi.annotations.media.Schema(description="")
 @JsonTypeName("AdditionalPropertiesClass")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.6.0-SNAPSHOT")
 public class AdditionalPropertiesClass  implements Serializable {
   private @Valid Map<String, String> mapString = new HashMap<>();
   private @Valid Map<String, BigDecimal> mapNumber = new HashMap<>();
@@ -31,9 +28,9 @@ public class AdditionalPropertiesClass  implements Serializable {
   private @Valid Map<String, List<Object>> mapArrayAnytype = new HashMap<>();
   private @Valid Map<String, Map<String, String>> mapMapString = new HashMap<>();
   private @Valid Map<String, Map<String, Object>> mapMapAnytype = new HashMap<>();
-  private @Valid Object anytype1;
-  private @Valid Object anytype2;
-  private @Valid Object anytype3;
+  private Object anytype1;
+  private Object anytype2;
+  private Object anytype3;
 
   protected AdditionalPropertiesClass(AdditionalPropertiesClassBuilder<?, ?> b) {
     this.mapString = b.mapString;
@@ -60,7 +57,6 @@ public class AdditionalPropertiesClass  implements Serializable {
   }
 
   
-  @ApiModelProperty(value = "")
   @org.eclipse.microprofile.openapi.annotations.media.Schema(description = "")
   @JsonProperty("map_string")
   public Map<String, String> getMapString() {
@@ -96,10 +92,9 @@ public class AdditionalPropertiesClass  implements Serializable {
   }
 
   
-  @ApiModelProperty(value = "")
   @org.eclipse.microprofile.openapi.annotations.media.Schema(description = "")
   @JsonProperty("map_number")
-  public Map<String, BigDecimal> getMapNumber() {
+  @Valid public Map<String, BigDecimal> getMapNumber() {
     return mapNumber;
   }
 
@@ -132,7 +127,6 @@ public class AdditionalPropertiesClass  implements Serializable {
   }
 
   
-  @ApiModelProperty(value = "")
   @org.eclipse.microprofile.openapi.annotations.media.Schema(description = "")
   @JsonProperty("map_integer")
   public Map<String, Integer> getMapInteger() {
@@ -168,7 +162,6 @@ public class AdditionalPropertiesClass  implements Serializable {
   }
 
   
-  @ApiModelProperty(value = "")
   @org.eclipse.microprofile.openapi.annotations.media.Schema(description = "")
   @JsonProperty("map_boolean")
   public Map<String, Boolean> getMapBoolean() {
@@ -204,10 +197,9 @@ public class AdditionalPropertiesClass  implements Serializable {
   }
 
   
-  @ApiModelProperty(value = "")
   @org.eclipse.microprofile.openapi.annotations.media.Schema(description = "")
   @JsonProperty("map_array_integer")
-  public Map<String, List<Integer>> getMapArrayInteger() {
+  @Valid public Map<String, List<Integer>> getMapArrayInteger() {
     return mapArrayInteger;
   }
 
@@ -240,10 +232,9 @@ public class AdditionalPropertiesClass  implements Serializable {
   }
 
   
-  @ApiModelProperty(value = "")
   @org.eclipse.microprofile.openapi.annotations.media.Schema(description = "")
   @JsonProperty("map_array_anytype")
-  public Map<String, List<Object>> getMapArrayAnytype() {
+  @Valid public Map<String, List<Object>> getMapArrayAnytype() {
     return mapArrayAnytype;
   }
 
@@ -276,10 +267,9 @@ public class AdditionalPropertiesClass  implements Serializable {
   }
 
   
-  @ApiModelProperty(value = "")
   @org.eclipse.microprofile.openapi.annotations.media.Schema(description = "")
   @JsonProperty("map_map_string")
-  public Map<String, Map<String, String>> getMapMapString() {
+  @Valid public Map<String, Map<String, String>> getMapMapString() {
     return mapMapString;
   }
 
@@ -312,10 +302,9 @@ public class AdditionalPropertiesClass  implements Serializable {
   }
 
   
-  @ApiModelProperty(value = "")
   @org.eclipse.microprofile.openapi.annotations.media.Schema(description = "")
   @JsonProperty("map_map_anytype")
-  public Map<String, Map<String, Object>> getMapMapAnytype() {
+  @Valid public Map<String, Map<String, Object>> getMapMapAnytype() {
     return mapMapAnytype;
   }
 
@@ -348,7 +337,6 @@ public class AdditionalPropertiesClass  implements Serializable {
   }
 
   
-  @ApiModelProperty(value = "")
   @org.eclipse.microprofile.openapi.annotations.media.Schema(description = "")
   @JsonProperty("anytype_1")
   public Object getAnytype1() {
@@ -368,7 +356,6 @@ public class AdditionalPropertiesClass  implements Serializable {
   }
 
   
-  @ApiModelProperty(value = "")
   @org.eclipse.microprofile.openapi.annotations.media.Schema(description = "")
   @JsonProperty("anytype_2")
   public Object getAnytype2() {
@@ -388,7 +375,6 @@ public class AdditionalPropertiesClass  implements Serializable {
   }
 
   
-  @ApiModelProperty(value = "")
   @org.eclipse.microprofile.openapi.annotations.media.Schema(description = "")
   @JsonProperty("anytype_3")
   public Object getAnytype3() {

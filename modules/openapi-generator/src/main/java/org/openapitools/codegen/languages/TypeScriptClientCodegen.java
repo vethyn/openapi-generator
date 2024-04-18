@@ -29,6 +29,8 @@ import org.openapitools.codegen.CodegenConstants.ENUM_PROPERTY_NAMING_TYPE;
 import org.openapitools.codegen.CodegenDiscriminator.MappedModel;
 import org.openapitools.codegen.meta.GeneratorMetadata;
 import org.openapitools.codegen.meta.Stability;
+import org.openapitools.codegen.meta.features.DocumentationFeature;
+import org.openapitools.codegen.meta.features.SecurityFeature;
 import org.openapitools.codegen.model.ModelMap;
 import org.openapitools.codegen.model.ModelsMap;
 import org.openapitools.codegen.model.OperationMap;
@@ -88,6 +90,8 @@ public class TypeScriptClientCodegen extends AbstractTypeScriptClientCodegen imp
 
     public TypeScriptClientCodegen() {
         super();
+
+        modifyFeatureSet(features -> features.includeSecurityFeatures(SecurityFeature.BearerToken));
 
         this.frameworkToHttpLibMap = new HashMap<>();
         this.frameworkToHttpLibMap.put("fetch-api", "isomorphic-fetch");
@@ -302,12 +306,12 @@ public class TypeScriptClientCodegen extends AbstractTypeScriptClientCodegen imp
     @Override
     public String toEnumVarName(String name, String datatype) {
         if (name.length() == 0) {
-            return getNameUsingEnumPropertyNaming("empty");
+            return getNameWithEnumPropertyNaming("empty");
         }
 
         // for symbol, e.g. $, #
         if (getSymbolName(name) != null) {
-            return getNameUsingEnumPropertyNaming(getSymbolName(name));
+            return getNameWithEnumPropertyNaming(getSymbolName(name));
         }
 
         // number
@@ -325,7 +329,7 @@ public class TypeScriptClientCodegen extends AbstractTypeScriptClientCodegen imp
         enumName = enumName.replaceFirst("^_", "");
         enumName = enumName.replaceFirst("_$", "");
 
-        enumName = getNameUsingEnumPropertyNaming(enumName);
+        enumName = getNameWithEnumPropertyNaming(enumName);
 
         if (enumName.matches("\\d.*")) { // starts with number
             return "_" + enumName;
@@ -334,7 +338,7 @@ public class TypeScriptClientCodegen extends AbstractTypeScriptClientCodegen imp
         }
     }
 
-    private String getNameUsingEnumPropertyNaming(String name) {
+    private String getNameWithEnumPropertyNaming(String name) {
         switch (getEnumPropertyNaming()) {
             case original:
                 return name;
@@ -478,7 +482,7 @@ public class TypeScriptClientCodegen extends AbstractTypeScriptClientCodegen imp
     public String getTypeDeclaration(Schema p) {
         Schema inner;
         if (ModelUtils.isArraySchema(p)) {
-            inner = ((ArraySchema) p).getItems();
+            inner = ModelUtils.getSchemaItems(p);
             return this.getSchemaType(p) + "<" + this.getTypeDeclaration(unaliasSchema(inner)) + ">";
         } else if (ModelUtils.isMapSchema(p)) {
             inner = getSchemaAdditionalProperties(p);
@@ -498,7 +502,7 @@ public class TypeScriptClientCodegen extends AbstractTypeScriptClientCodegen imp
 
     @Override
     protected void addAdditionPropertiesToCodeGenModel(CodegenModel codegenModel, Schema schema) {
-        codegenModel.additionalPropertiesType = getTypeDeclaration((Schema) schema.getAdditionalProperties());
+        codegenModel.additionalPropertiesType = getSchemaType(ModelUtils.getAdditionalProperties(schema));
         addImport(codegenModel, codegenModel.additionalPropertiesType);
     }
 
@@ -783,8 +787,7 @@ public class TypeScriptClientCodegen extends AbstractTypeScriptClientCodegen imp
             }
             return fullPrefix + example + closeChars;
         } else if (ModelUtils.isArraySchema(schema)) {
-            ArraySchema arrayschema = (ArraySchema) schema;
-            Schema itemSchema = arrayschema.getItems();
+            Schema itemSchema = ModelUtils.getSchemaItems(schema);
             String itemModelName = getModelName(itemSchema);
             if (objExample instanceof Iterable && itemModelName == null) {
                 // If the example is already a list, return it directly instead of wrongly wrap it in another list
@@ -831,7 +834,7 @@ public class TypeScriptClientCodegen extends AbstractTypeScriptClientCodegen imp
         } else if (ModelUtils.isObjectSchema(schema)) {
             fullPrefix += "{";
             closeChars = "}";
-            CodegenDiscriminator disc = createDiscriminator(modelName, schema, openAPI);
+            CodegenDiscriminator disc = createDiscriminator(modelName, schema);
             if (disc != null) {
                 MappedModel mm = getDiscriminatorMappedModel(disc);
                 if (mm != null) {
@@ -915,8 +918,7 @@ public class TypeScriptClientCodegen extends AbstractTypeScriptClientCodegen imp
         } else if (simpleStringSchema(schema)) {
             return propName + "_example";
         } else if (ModelUtils.isArraySchema(schema)) {
-            ArraySchema arraySchema = (ArraySchema) schema;
-            Schema itemSchema = arraySchema.getItems();
+            Schema itemSchema = ModelUtils.getSchemaItems(schema);
             example = getObjectExample(itemSchema);
             if (example != null) {
                 return example;
@@ -1037,7 +1039,7 @@ public class TypeScriptClientCodegen extends AbstractTypeScriptClientCodegen imp
 
         if (content.size() > 1) {
             // @see ModelUtils.getSchemaFromContent()
-            once(LOGGER).warn("Multiple MediaTypes found, using only the first one");
+            once(LOGGER).debug("Multiple MediaTypes found, using only the first one");
         }
 
         MediaType mediaType = content.values().iterator().next();
@@ -1088,7 +1090,7 @@ public class TypeScriptClientCodegen extends AbstractTypeScriptClientCodegen imp
             return;
         }
 
-        String[] parts = splitComposedType(type);
+        String[] parts = splitComposedTypes(type);
         for (String s : parts) {
             super.addImport(importsToBeAddedTo, s);
         }
@@ -1101,7 +1103,7 @@ public class TypeScriptClientCodegen extends AbstractTypeScriptClientCodegen imp
      * @param type String with composed types
      * @return list of types
      */
-    protected String[] splitComposedType(String type) {
+    protected String[] splitComposedTypes(String type) {
         return type.replace(" ", "").split("[|&<>]");
     }
 }
